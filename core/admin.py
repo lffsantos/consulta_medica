@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from core.models import Consulta, Exame
+
+admin.site.register(Consulta)
+admin.site.register(Exame)

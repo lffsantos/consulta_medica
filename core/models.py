@@ -9,11 +9,10 @@ class Consulta(models.Model):
     valor_consulta = models.FloatField(null=True)
 
     def __str__(self):
-        return self.numero_guia_consulta
+        return f'{self.numero_guia_consulta}'
 
     class Meta:
         ordering = ["-data_consulta"]
-        verbose_name_plural = "oxen"
 
 
 class Exame(models.Model):
