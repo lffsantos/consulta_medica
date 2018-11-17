@@ -1,4 +1,5 @@
 import csv
+import os
 
 from django.core.management import BaseCommand
 
@@ -9,7 +10,8 @@ class Command(BaseCommand):
     help = 'Import Investors from Autonomos Agent spreadsheet'
 
     def handle(self, *args, **options):
-        with open('/home/lucas/Lucas/experimentos/teste_django/exame.csv', newline='') as csvfile:
+        path = os.path.dirname(os.path.abspath(__file__))
+        with open(f'{path}/exame.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile, fieldnames=['cod_exame', 'numero_guia_consulta', 'valor_exame'], delimiter=';')
             for row in reader:
                 exame = Exame()
