@@ -1,8 +1,8 @@
 from django.shortcuts import render
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from core.forms import ReportForm
 from core.models import Consulta
 
 
@@ -12,7 +12,12 @@ def index(request):
 
 @api_view(['GET'])
 def report(request):
-    return Response({"oi": "oi"})
+    report = ReportForm(request.GET)
+    if report.is_valid():
+        result = report.filter_consulta()
+        return Response(result)
+
+    return Response({"error": "error"}, status=400)
 
 
 @api_view(['GET'])
