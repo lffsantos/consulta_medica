@@ -13,3 +13,5 @@ whitenoise==3.3.0
 coverage==4.2
 model-mommy==1.5.1
 parameterized==0.6.1
+djangorestframework==3.8.2
+django-cors-headers==2.4.0
