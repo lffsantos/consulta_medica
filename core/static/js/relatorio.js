@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+    let selector_intervalo_consulta = $('input[name="intervalo_consulta"]');
     $.ajax({
       url: "doctors",
       success: function(data) {
@@ -10,23 +11,49 @@ $( document ).ready(function() {
           console.log(result);
       }
      });
-    $('input[name="intervalo_consulta"]').daterangepicker({
+    selector_intervalo_consulta.daterangepicker({
         autoUpdateInput: false,
         locale: {
           cancelLabel: 'Clear',
           format: 'DD/M/Y'
         }
       });
-    $('input[name="intervalo_consulta"]').on('apply.daterangepicker', function(ev, picker) {
+    selector_intervalo_consulta.on('apply.daterangepicker', function(ev, picker) {
       $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
     });
 
-    $('input[name="intervalo_consulta"]').on('cancel.daterangepicker', function(ev, picker) {
+    selector_intervalo_consulta.on('cancel.daterangepicker', function(ev, picker) {
       $(this).val('');
     });
     $( "#limpar" ).click(function( event ) {
 
 
+    });
+    let datatable = $('#relatorio').DataTable({
+        "order": [],
+        data: [],
+        columns: [
+                    { data: 'nome_medico' },
+                    { data: 'numero_guia' },
+                    { data: 'dt_consulta' },
+                    { data: 'valor_consulta', render: $.fn.dataTable.render.number( ',', '.', 2, 'R$ ' )},
+                    { data: 'gasto_consulta' ,render: $.fn.dataTable.render.number( ',', '.', 2, 'R$ ' )},
+                    { data: 'qt_exames' }
+                ],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ resultados por página",
+            "zeroRecords": "Nada Encontrado",
+            "info": "Mostrando página _PAGE_ of _PAGES_",
+            "infoEmpty": "Sem resultados",
+            "infoFiltered": "(filtro para _MAX_ registros no total)",
+            "search":  "Filtrar:",
+            "paginate": {
+                "first":      "Primeiro",
+                "last":       "Último",
+                "next":       "Próximo",
+                "previous":   "Anterior"
+            },
+        }
     });
     $( "#buscar" ).click(function( event ) {
         $('table>tbody').html('');
@@ -56,17 +83,9 @@ $( document ).ready(function() {
            async: false,
            success: function(data) {
               console.log(data);
-               $.each(data, function (key, value) {
-                  let detail = '<tr>' +
-                      '<td>' + value['nome_medico'] + '</td>' +
-                      '<td>' + value['numero_guia'] + '</td>' +
-                      '<td>' + value['dt_consulta'] + '</td>' +
-                      '<td>' + value['valor_consulta'].toFixed(2) + '</td>' +
-                      '<td>' + value['gasto_consulta'].toFixed(2) + '</td>' +
-                      '<td>' + value['qt_exames'] + '</td>' +
-                      '</tr>';
-                  $('table>tbody').append(detail);
-              });
+               datatable.clear().draw();
+               datatable.rows.add(data); // Add new data
+               datatable.columns.adjust().draw()
           }
         });
     });
