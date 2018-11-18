@@ -1,5 +1,4 @@
 # Consulta Médica  
-````  
   
   
 Relatório de produção médica   
@@ -13,12 +12,12 @@ Relatório de produção médica
 5. Configure a instância .env  
 6. Execute os testes.  
   
-````  
-	git clone git@github.com:lffsantos/consulta_medica.git consulta_medica  
-	cd consulta_medica  
-	python -m venv .venv 
-	source .venv/bin/activate  
-	pip install -r requirements-dev.txt  
-	cp contrib/env-sample .env  
-	python manage.py test  
-``` 
+```console  
+git clone git@github.com:lffsantos/consulta_medica.git consulta_medica  
+cd consulta_medica  
+python -m venv .venv 
+source .venv/bin/activate  
+pip install -r requirements-dev.txt  
+cp contrib/env-sample .env  
+python manage.py test  
+```
