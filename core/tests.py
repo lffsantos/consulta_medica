@@ -22,10 +22,10 @@ class ConsultaMedica(APITestCase):
             valor_consulta=5)
         self.consulta5 = mommy.make(
             Consulta, numero_guia_consulta=5, nome_medico='Ademar',
-            valor_consulta=5)
+            data_consulta='2018-11-17', valor_consulta=5)
         self.consulta6 = mommy.make(
             Consulta, numero_guia_consulta=6, nome_medico='Marcos',
-            valor_consulta=5)
+            data_consulta='2018-11-17', valor_consulta=5)
         self.exame1 = mommy.make(
             Exame, valor_exame=100, numero_guia_consulta=self.consulta1)
         self.exame2 = mommy.make(
